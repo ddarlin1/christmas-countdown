@@ -1,18 +1,22 @@
-const countdownDisplay = document.getElementById("countdown-display")
+const countdownDisplay = document.getElementById("countdown-display");
 
-function renderCountdown(){
-    const christmas = 25;
-    const today = new Date().getDate()
-    let remainingTime = christmas - today
-    countdownDisplay.textContent = remainingTime
-    // Task:
-    // - Get today's date (you only need the day).
-    // - Calculate remaining days.
-    // - Display remaining days in countdownDisplay.
-}
+var christmas = new Date("Dec 25, 2021 00:00:00").getTime();
 
-renderCountdown()
+var x = setInterval(function () {
+  var now = new Date().getTime();
+  var distance = christmas - now;
 
-// Stretch goals:
-// - Display hours, minutes, seconds.
-// - Add a countdown for another festival, your birthday, or Christmas 2022.
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  countdownDisplay.innerHTML =
+    days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+  if (distance < 0) {
+    clearInterval(x);
+    countdownDisplay.innerHTML = "EXPIRED";
+  }
+}, 1000);
